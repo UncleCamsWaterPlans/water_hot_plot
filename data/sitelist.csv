@@ -1,4 +1,4 @@
-﻿Basin,Catchment,Site ID,Site name,Site code,Latitude (GDA2020),Longitude (GDA2020),Site type,Stream order,Stream habit
+Basin,Catchment,GSnum,Site name,Site code,Latitude (GDA2020),Longitude (GDA2020),Site type,Stream order,Stream habit
 Herbert,Herbert River,1160115,Broadwater Creek at Day Use,BCD,-18.41633,145.94393,Reference,4,Natural
 Herbert,Catherina Creek,1160116,Catherina Creek at Catherina Creek Road,CCC,-18.59907,146.23627,End of System,3,Natural
 Herbert,Herbert River,1160117,Elphinstone Creek at Copley Road,ECC,-18.46506,145.96146,Impact,4,Natural
