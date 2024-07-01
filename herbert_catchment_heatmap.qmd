@@ -1,0 +1,102 @@
+---
+title: "Water Hot Plot"
+author: "Cameron Roberts"
+format:
+  html:
+    code-fold: true
+jupyter: python3
+---
+
+Please consider my submission for the 2024 Plotnine competition. I adapted this from previously successful R code (GGplot2). While I initially intended to use a ridgeline plot for clearer data concentration visualization, I found that the heatmap, which I had previously abandoned, worked surprisingly well in plotnine.
+
+I hope you find it compelling!
+
+
+## Data Import and Preparation
+
+Data has been extracted from the Queensland Government Department of Environment, Science and Innovation. Site-specific metadata provides context for the site locations.
+
+```{python}
+import pandas as pd
+from datetime import datetime
+from plotnine import *
+
+#import concentration data
+df = pd.read_csv('data/catchment_NNO3_all.csv')
+print(df.head())
+#import site information
+sitelist = pd.read_csv('data/sitelist.csv')
+print(sitelist.head())
+```
+
+## Data joining and preprocessing
+```{python}
+# Subset to include only 'GSnum' and 'Value' columns
+subset_df = df[['GSnum', 'Value']]
+
+# Group by 'GSnum' and calculate the median for the 'Value' and 'Quality' columns
+median_summary = subset_df.groupby('GSnum').median().reset_index()
+
+# Rename the 'Value' column to 'median'
+median_summary.rename(columns={'Value': 'median'}, inplace=True)
+
+# Perform a left join of the original DataFrame with the median summary DataFrame
+merged_df = pd.merge(df, median_summary, on='GSnum', how='left')
+merged_df = pd.merge(merged_df, sitelist[['GSnum', 'Site type', 'Site code']], on='GSnum', how='left')
+
+# Concatenate columns with separator
+merged_df['combined_col'] = merged_df['Site type'] + ' // ' + merged_df['Site code']
+```
+
+
+## Date parsing and monthly aggregation
+```{python}
+# Parse the 'Date' column from the timestamp
+merged_df['ts'] = pd.to_datetime(merged_df['ts'])
+
+# Group by month and calculate median of 'Value' column
+monthly_median = merged_df.groupby([merged_df['ts'].dt.month, 'name', 'combined_col'])['Value'].max()
+
+# Convert the Series to a DataFrame
+df = monthly_median.reset_index(name='value')
+
+# Create a list of month names
+month_names = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+
+# Map the month numbers to month names
+df['month_name'] = df['ts'].apply(lambda x: month_names[x-1])
+df
+```
+
+# Visualization
+```{python}
+(
+    ggplot(df, aes(x='ts', y='combined_col', fill='value')) +
+    geom_tile(aes(width=0.95, height=0.95)) +
+    theme_dark(base_size=11, base_family=None) +
+    geom_text(aes(label="value.round(2).astype(str)"), size=6, color='#DDDEDF', show_legend=False) +
+    scale_fill_cmap(cmap_name="inferno", name="Max Monthly Nitrate-N Concentration (mg/L)") +
+    #scale_fill_gradient(cmap_name="viridis", low="#3BC4A4", high="#CC334E") +  # Adjust low and high colors as needed
+    scale_x_continuous(breaks=range(1, 13), labels=month_names, name="") +
+    scale_y_discrete(name="Site type and ID") +  # Change y-axis label
+    theme(axis_text_x=element_text(angle=30, hjust=1.5),
+          legend_position='top',  # Move legend to the top
+          legend_direction='horizontal')  # Horizontal orientation of legend
+)
+```
+
+This graph displays the maximum monthly Nitrate-N concentration (measured in mg/L) for various sites over 4 years of monitoring (2020 - 2024). Here are some key observations:
+
+- Site types are categorized as:
+    - Reference
+    - Impact
+    - End of System
+- The concentration values are represented by both numbers and a color scale, with darker colors indicating lower concentrations and brighter colors (yellow) indicating higher concentrations.
+- Generally, the **Impact** and **End of System** sites show *higher* nitrate concentrations compared to **Reference** sites.
+- Some sites, particularly Impact sites like **TBH**, **FCW**, and **LCL**, show *very* high concentrations (above 4 mg/L) in certain months.
+- There's considerable variation both across sites and across months for individual sites.
+- The highest recorded concentration appears to be **6.96 mg/L at the End of System // CCC site in December**.
+- Reference sites generally maintain **lower** concentrations throughout the year.
+- Some sites show clear seasonal patterns, while others have more sporadic high concentration months.
+
+This graph allows for comparison of nitrate levels across different types of sites and seasons, which could be useful for environmental monitoring or water quality assessment. 

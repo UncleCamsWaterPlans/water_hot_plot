@@ -8,9 +8,10 @@ library(tidyverse)
 
 
 #Constants
-Start <- "2023-01-01T00:00:00Z"
+Start <- "2020-01-01T00:00:00Z"
 End <- "2024-01-01T00:00:00Z"
 APIKEY <- keyring::key_get("EIO_KEY")
+
 
 # QC codes::
 GOOD <- c(1:100,1000:1999, 2012)
