@@ -6,7 +6,19 @@ format:
   html:
     code-fold: true
     embed-resources: true
+    theme: cosmo
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    html-math-method: katex
+    css: styles.css
 jupyter: python3
+execute:
+  echo: true
+  warning: false
+project:
+  type: website
+  output-dir: docs
 ---
 ## Introduction
 
@@ -62,7 +74,7 @@ sitelist.head()
 ```
 
 
-## Data joining and preprocessing 
+## Data joining and Preprocessing 
 
 In order to work with these data in Plotnine we must join the data frames to include the nessecary metadata for the visualisations we are wanting. The result is one dataframe that will allow for a simpler integration with the graphics.  
 
@@ -85,7 +97,7 @@ merged_df['combined_col'] = merged_df['Site type'] + ' // ' + merged_df['Site co
 ```
 
 
-## Date parsing and monthly aggregation
+## Date Parsing and Monthly Aggregation
 
 The data needs to be aggregated by month. A seperate column has been created to allow for '*prettier*' month names for the plot. 
 ```{python}
