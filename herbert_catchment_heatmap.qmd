@@ -56,9 +56,9 @@ df.head()
 Site-specific metadata provides context for the site locations and the site 'types' to help understand drivers for the installations. 
 
 - Site types are categorized as:
-  - Reference: Situated in the upper catchment above contaminant sources, intended to provide a natural baseline.
-  - Impact – Located directly downstream of land-use types known to contribute to nutrient to the waterways (ie. agriculture/urban land use)
-  - End-of-system – Located at the most seaward practical monitoring point along the river or creek. The
+  - **Reference**: Situated in the upper catchment above contaminant sources, intended to provide a natural baseline.
+  - **Impact** – Located directly downstream of land-use types known to contribute to nutrient to the waterways (ie. agriculture/urban land use)
+  - **End-of-system** – Located at the most seaward practical monitoring point along the river or creek. The
 intent is to capture the maximum extent of upstream land use while avoiding the complexities of monitoring
 in the estuary.
 
