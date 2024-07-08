@@ -14,9 +14,6 @@ jupyter: python3
 execute:
   echo: true
   warning: false
-project:
-  type: website
-  output-dir: docs
 ---
 ## Introduction
 
