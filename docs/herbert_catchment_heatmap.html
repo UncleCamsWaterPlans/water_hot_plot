@@ -109,7 +109,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="floating nav-fixed">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -144,8 +144,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <nav id="TOC" role="doc-toc" class="toc-active">
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
@@ -158,10 +159,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#visualization" id="toc-visualization" class="nav-link" data-scroll-target="#visualization">Visualization</a></li>
   </ul>
 </nav>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -216,7 +213,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="data-import-and-preparation" class="level2">
 <h2 class="anchored" data-anchor-id="data-import-and-preparation">Data Import and Preparation</h2>
 <p>Data comes from DESI’s Water Quality and Investigations monitoring network for the lower Herbert catchment near Ingham, Queensland. The network includes 17 in-situ nitrate sensors reading every 15 minutes since 2020. Due to remote deployment challenges, sensor uptime varies. Data from 2020-2024 across all sites was extracted and provides sufficient coverage to attain monthly data summaries for each monitoring site.</p>
-<div id="b5c8654e" class="cell" data-execution_count="1">
+<div id="1f68a3e0" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -294,11 +291,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Site types are categorized as:
 <ul>
 <li><strong>Reference</strong>: Situated in the upper catchment above contaminant sources, intended to provide a natural baseline.</li>
-<li><strong>Impact</strong> – Located directly downstream of land-use types known to contribute to nutrient to the waterways (ie. agriculture/urban land use)</li>
-<li><strong>End-of-system</strong> – Located at the most seaward practical monitoring point along the river or creek. The intent is to capture the maximum extent of upstream land use while avoiding the complexities of monitoring in the estuary.</li>
+<li><strong>Impact</strong>: Located directly downstream of land-use types known to contribute to nutrient to the waterways (ie. agriculture/urban land use)</li>
+<li><strong>End-of-system</strong>: Located at the most seaward practical monitoring point along the river or creek. The intent is to capture the maximum extent of upstream land use while avoiding the complexities of monitoring in the estuary.</li>
 </ul></li>
 </ul>
-<div id="7e098481" class="cell" data-execution_count="2">
+<div id="f71627c0" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#import site information</span></span>
@@ -400,8 +397,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="data-joining-and-preprocessing" class="level2">
 <h2 class="anchored" data-anchor-id="data-joining-and-preprocessing">Data joining and Preprocessing</h2>
-<p>In order to work with these data in Plotnine we must join the data frames to include the nessecary metadata for the visualisations we are wanting. The result is one dataframe that will allow for a simpler integration with the graphics.</p>
-<div id="0290a233" class="cell" data-execution_count="3">
+<p>In order to work with these data in <code>Plotnine</code> we must join the data frames to include the nessecary metadata for the visualisations we are wanting. The result is one dataframe that will allow for a simpler integration with the graphics.</p>
+<div id="25843a0e" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset to include only 'GSnum' and 'Value' columns</span></span>
@@ -425,7 +422,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="date-parsing-and-monthly-aggregation" class="level2">
 <h2 class="anchored" data-anchor-id="date-parsing-and-monthly-aggregation">Date Parsing and Monthly Aggregation</h2>
 <p>The data needs to be aggregated by month. A seperate column has been created to allow for ‘<em>prettier</em>’ month names for the plot.</p>
-<div id="560de3a3" class="cell" data-execution_count="4">
+<div id="73d4d587" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Parse the 'Date' column from the timestamp</span></span>
@@ -558,7 +555,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="visualization" class="level1">
 <h1>Visualization</h1>
-<div id="d6997137" class="cell" data-execution_count="5">
+<div id="76c1d01e" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>(</span>
@@ -587,12 +584,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>This graph displays the maximum monthly Nitrate-N concentration (mg/L) for various sites over 4 years of monitoring (2020 - 2024). Here are some key observations:</p>
 <ul>
-<li>Generally, the <strong>Impact</strong> and <strong>End of System</strong> sites show <em>higher</em> nitrate concentrations.</li>
-<li>Reference sites generally maintain <strong>lower</strong> concentrations throughout the year.</li>
+<li>The <strong>Impact</strong> and <strong>End of System</strong> sites display <em>higher</em> nitrate concentrations.</li>
+<li><strong>Reference</strong> sites generally maintain <strong>lower</strong> concentrations throughout the year.</li>
 <li>Highest concentrations are seen between November - January (coinciding with the wet season onset in the region)</li>
-<li>Some sites, particularly Impact sites like <strong>TBH</strong>, <strong>FCW</strong>, and <strong>LCL</strong>, show <em>very</em> high concentrations (above 4 mg/L) in certain months.</li>
-<li>There’s considerable variation both across sites and across months for individual sites.</li>
+<li>Some sites show very high concentrations (above 4 mg/L) in certain months.
+<ul>
 <li>The highest recorded concentration appears to be <strong>6.95 mg/L</strong> at the End of System site <strong>CCC</strong> in December.</li>
+</ul></li>
 <li>Some sites show clear seasonal patterns, while others have more sporadic high concentration months.
 <ul>
 <li>Periods of elevated concentration outside of the wet season may indicate specific impacts from fertiliser re-application and unseasonal or unexpected rainfall driven runoff events.</li>

@@ -6,10 +6,6 @@ format:
   html:
     code-fold: true
     theme: cosmo
-    toc: true
-    toc-depth: 3
-    toc-location: left
-    html-math-method: katex
 jupyter: python3
 execute:
   echo: true
@@ -57,8 +53,8 @@ Site-specific metadata provides context for the site locations and the site 'typ
 
 - Site types are categorized as:
   - **Reference**: Situated in the upper catchment above contaminant sources, intended to provide a natural baseline.
-  - **Impact** – Located directly downstream of land-use types known to contribute to nutrient to the waterways (ie. agriculture/urban land use)
-  - **End-of-system** – Located at the most seaward practical monitoring point along the river or creek. The
+  - **Impact**: Located directly downstream of land-use types known to contribute to nutrient to the waterways (ie. agriculture/urban land use)
+  - **End-of-system**: Located at the most seaward practical monitoring point along the river or creek. The
 intent is to capture the maximum extent of upstream land use while avoiding the complexities of monitoring
 in the estuary.
 
@@ -71,7 +67,7 @@ sitelist.head()
 
 ## Data joining and Preprocessing 
 
-In order to work with these data in Plotnine we must join the data frames to include the nessecary metadata for the visualisations we are wanting. The result is one dataframe that will allow for a simpler integration with the graphics.  
+In order to work with these data in `Plotnine` we must join the data frames to include the nessecary metadata for the visualisations we are wanting. The result is one dataframe that will allow for a simpler integration with the graphics.  
 
 ```{python}
 # Subset to include only 'GSnum' and 'Value' columns
@@ -134,11 +130,10 @@ df
 
 This graph displays the maximum monthly Nitrate-N concentration (mg/L) for various sites over 4 years of monitoring (2020 - 2024). Here are some key observations:
 
-- Generally, the **Impact** and **End of System** sites show *higher* nitrate concentrations.
-- Reference sites generally maintain **lower** concentrations throughout the year.
+- The **Impact** and **End of System** sites display *higher* nitrate concentrations.
+- **Reference** sites generally maintain **lower** concentrations throughout the year.
 - Highest concentrations are seen between November - January (coinciding with the wet season onset in the region)
-- Some sites, particularly Impact sites like **TBH**, **FCW**, and **LCL**, show *very* high concentrations (above 4 mg/L) in certain months.
-- There's considerable variation both across sites and across months for individual sites.
-- The highest recorded concentration appears to be **6.95 mg/L** at the End of System site **CCC** in December.
+- Some sites show very high concentrations (above 4 mg/L) in certain months.
+  - The highest recorded concentration appears to be **6.95 mg/L** at the End of System site **CCC** in December.
 - Some sites show clear seasonal patterns, while others have more sporadic high concentration months.
   - Periods of elevated concentration outside of the wet season may indicate specific impacts from fertiliser re-application and unseasonal or unexpected rainfall driven runoff events.  
