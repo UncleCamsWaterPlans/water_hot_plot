@@ -5,13 +5,11 @@ author: "Cameron Roberts"
 format:
   html:
     code-fold: true
-    embed-resources: true
     theme: cosmo
     toc: true
     toc-depth: 3
     toc-location: left
     html-math-method: katex
-    css: styles.css
 jupyter: python3
 execute:
   echo: true
